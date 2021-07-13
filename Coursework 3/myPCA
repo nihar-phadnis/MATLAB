@@ -1,0 +1,13 @@
+function [PC, EV] = myPCA(A)
+
+A= cov(A);
+
+[V, D]= eig(A);
+ 
+
+[~, ind]= sort(D(D~=0), 'descend');
+
+EV= D(ind, ind);
+
+PC= V(:, ind);
+end
