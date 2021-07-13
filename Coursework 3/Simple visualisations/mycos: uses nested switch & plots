@@ -1,0 +1,88 @@
+%This function uses nested switch: first to choose the colour & second for
+%a star or a circle.
+
+function []= mycos(a,b)
+
+s= menu('Choose a colour', 'red', 'blue', 'green');
+tiledlayout(2, 1)   %this helps create two plots in the same figure
+switch s   
+        
+    case 1
+    x= linspace(-pi, pi, a);
+    y= cos(x);
+    m= linspace(-pi, pi, b);
+    n= cos(m);
+        choice = menu('Choose a style', 'star', 'circle');
+        switch choice
+            case 1
+                nexttile
+                plot(x, y, '-*', 'color', 'red');
+                title(sprintf('%d points',a))
+                hold on
+                nexttile
+                plot(m, n, '-*', 'color', 'red');
+                title(sprintf('%d points',b))
+            otherwise
+                nexttile
+                plot(x, y, '-o', 'color', 'red');
+                title(sprintf('%d points', a))
+                hold on
+                nexttile
+                plot(m, n, '-o', 'color', 'red')
+                title(sprintf('%d points', b))
+        end
+    
+        
+    case 2         
+        x= linspace(-pi, pi, a);
+        y= cos(x);
+        m= linspace(-pi, pi, b);
+        n= cos(m); 
+            choice = menu('Choose a style', 'star', 'circle');
+        switch choice
+            case 1
+                nexttile
+                plot(x, y, '-*', 'color', 'blue');
+                title(sprintf('%d points', a))
+                hold on
+                nexttile
+                plot(m, n, '-*', 'color', 'blue');
+                title(sprintf('%d points', b))
+            otherwise
+                nexttile
+                plot(x, y, '-o', 'color', 'blue');
+                title(sprintf('%d points', a))
+                hold on
+                nexttile
+                plot(m, n, '-o', 'color', 'blue');
+                title(sprintf('%d points', b))
+                
+        end
+        
+    case 3
+        x= linspace(-pi, pi, a);
+        y= cos(x);
+        m= linspace(-pi, pi, b);
+        n= cos(m);
+        
+            choice = menu('Choose a style', 'star', 'circle');
+        switch choice
+            case 1
+                nexttile
+                plot(x, y, '-*', 'color', 'green');
+                title(sprintf('%d points', a))
+                hold on
+                nexttile
+                plot(m, n, '-*', 'color', 'green');
+                title(sprintf('%d points', b))
+            otherwise
+                nexttile
+                plot(x, y, '-o', 'color', 'green');
+                title(sprintf('%d points', a))
+                hold on
+                nexttile
+                plot(m, n, '-o', 'color', 'green');
+                title(sprintf('%d points', b))
+        end
+        
+end        
