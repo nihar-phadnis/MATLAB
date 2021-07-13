@@ -1,0 +1,8 @@
+function D = projectData(X, U, k)
+
+Y= U(:, 1:k);
+
+D=(X*Y);
+
+end
+
