@@ -1,0 +1,9 @@
+function [Xmu, mu] = subtractMean (M)
+
+column = mean(M);
+
+mu = [column];
+
+Xmu = M - column;
+
+end
