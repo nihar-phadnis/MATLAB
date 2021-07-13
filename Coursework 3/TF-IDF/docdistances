@@ -1,0 +1,137 @@
+function cosine_distance = docdistances()
+%It finds the cosine distance between each pair of tfidf and then plots
+%them using imagesc in the end.
+
+doc1= textread('CAFA1.txt', '%s');
+doc2= textread('CAFA2.txt', '%s');
+doc3= textread('CAFA3.txt', '%s');
+doc4= textread('RedRidingHood.txt', '%s');
+doc5= textread('PrincessPea.txt', '%s');
+doc6= textread('Cinderella.txt', '%s');
+
+    function termFreq = tf(docs)
+
+    total_terms = cat(1, doc1, doc2, doc3, doc4, doc5, doc6);
+
+    Corpus = unique(total_terms);
+
+    %Allocating a vector to the length of the Corpus
+
+    freq=zeros(numel(Corpus),1);
+        
+    for i=1:numel(Corpus)
+    
+        for j= 1:length(docs)
+            id=(ismember(docs,(Corpus{i})));
+            freq(i)=length(find(id==1));
+        end
+        termFreq = freq;
+    end        
+    end    
+
+    function inverse_doc = idf()
+
+%N is 6 as the number of documents are 6
+    N= 6;
+
+    total_terms = cat(1, doc1, doc2, doc3, doc4, doc5, doc6);
+
+    Corpus = unique(total_terms);
+
+%We will pre-allocate a vector with the length of the Corpus
+    inv=zeros(length(Corpus),1);
+   
+%This loop will iterate through each unique word in doc to compute the idf vector
+
+    for i=1:length(Corpus)
+    
+         res=0;
+   
+        id=find(ismember(doc1, Corpus{i})>=1);
+        if ~isempty (id)
+             res=res+1;
+        end
+
+         id=find(ismember(doc2, Corpus{i})>=1);         
+         if ~isempty(id)           
+             res=res+1;
+         end
+
+         id=find(ismember(doc3, Corpus{i})>=1);            
+         if ~isempty(id)              
+             res=res+1;            
+         end
+
+         id=find(ismember(doc4, Corpus{i})>=1);            
+         if ~isempty(id)          
+             res=res+1;
+         end
+
+         id=find(ismember(doc5, Corpus{i})>=1);            
+         if ~isempty(id)            
+           res=res+1;
+         end
+
+
+        id=find(ismember(doc6,Corpus{i})>=1);        
+        if ~isempty(id)            
+             res=res+1;            
+        end
+
+         inv(i)=res;
+    end
+
+%The idf vector is given by this formula
+    inverse_doc=log10(N./inv);
+
+    end
+
+%inverse doc frequency
+
+idf_vec = idf();
+
+%Calculate tfidf of all docs after calling the tf function
+
+Doc1=tf(doc1);
+tfidf1= Doc1 .* idf_vec;
+
+Doc2=tf(doc2);
+tfidf2= Doc2 .* idf_vec;
+
+Doc3=tf(doc3);
+tfidf3= Doc3 .* idf_vec;
+
+Doc4=tf(doc4);
+tfidf4= Doc4 .* idf_vec;
+
+Doc5=tf(doc5);
+tfidf5= Doc5 .* idf_vec;
+
+Doc6=tf(doc6);
+tfidf6= Doc6 .* idf_vec;
+
+vector=[tfidf1, tfidf2, tfidf3, tfidf4, tfidf5, tfidf6];
+
+cosine_distance=zeros(6,6);
+
+for i=1:6
+
+    for j=1:6
+
+        cosine_distance(i,j)= 1 - sum((vector(:,i)).'*(vector(:,j)))/sqrt(sum(vector(:,i).^2)*(sum(vector(:,j).^2)));
+
+    end
+
+end
+
+%Plot the Cosine distance matrix with the help of imagesc
+
+labels={'RRH','PPea','Cinde','CAFA1','CAFA2','CAFA3'};
+imagesc(cosine_distance);
+colormap(gray)
+colorbar;
+title('Cosine Distance')
+set(gca,'xtick',[1:6],'xticklabel',labels);
+set(gca,'ytick',[1:6],'yticklabel',labels);
+
+end
