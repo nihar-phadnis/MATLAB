@@ -1,0 +1,51 @@
+%We have a function here that takes two input strings from a set & produces
+%a figure with 2 subplots. 
+
+function membersplot(varargin)
+clf;
+
+%set of options
+
+options = ['bar' 'barh' 'pie'];
+ME = 22; BM = 45; CE = 23; EE = 33; 
+data = [ME BM CE EE]; 
+labels = {'ME','BM','CE','EE'};
+
+%We use a switch case along with varargin to produce the plot
+
+if ~isempty(varargin)
+    for c= 1:length(varargin)
+        
+        switch varargin{c}
+            
+            case{'bar'}
+                subplot(1,2,c)
+                bar(data)
+                hold on
+                grid on
+                set(gca,'XTickLabel', labels)
+                xlabel('Departments')
+                ylabel('Number of Faculty members')
+           
+            case {'barh'}
+                subplot(1,2,c)
+                x= [0 10 20 30 40 50];
+                barh(data);           
+                hold on
+                grid on
+                set(gca,'YTickLabel', labels)
+                set(gca, 'XTickLabel', x)
+                xlabel('Number of Faculty members')
+                ylabel('Departments')
+            case {'pie'}
+                subplot(1,2,c)
+                pie(data, labels);
+                legend(labels, 'Location', 'best','Orientation', 'Horizontal')
+                title('Faculty members by department')
+                hold on
+          
+        end
+    end
+end
+    
+end
