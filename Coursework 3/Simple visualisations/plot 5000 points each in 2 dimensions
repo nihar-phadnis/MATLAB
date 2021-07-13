@@ -1,0 +1,22 @@
+%This script will generate 5000 points uniformly distributed.  
+
+x =randi([10 35],500,10);
+y= randi([10 35], 500,10);
+
+plot(x,y, 'g*')
+hold on
+grid on
+
+
+%This generates another 5000 points and is denoted by the red star
+
+x= 2 + 1.*randn(500, 10);
+y= 7+ 1.*randn(500,10);
+
+plot(x,y, 'r*')
+hold on
+grid on
+
+
+xlim([-10 40])
+ylim([-5 40])
