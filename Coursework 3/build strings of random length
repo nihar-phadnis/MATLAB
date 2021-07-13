@@ -1,0 +1,28 @@
+%This function returns a cell array in the increasing or decreasing order
+%of lengths. For the decreasing order, it takes the abs value of the input.
+
+function random = buildrandomstrings(n)
+
+letters= char(32:127);      %initiating characters into the letters
+ar= letters(randi(numel(letters),1,n)); %random characters into ar
+random= {ar};
+
+if n>0                  %checks if the input is greater than, less than or equal to
+    for i= 1:length(ar)
+        random{i}= (ar(1:i));
+    end
+    random = reshape(random, [n,1]);  
+elseif n < 0
+    rev= letters(randi(numel(letters),1,abs(n)));
+    random= {rev};
+    for i= 1:length(rev)
+        random{i}= (rev(1:i));
+    end
+    random = fliplr(random); %Using the fliplr function for decreasing order
+    random= reshape(random, [abs(n),1]);
+
+else
+   msgbox('Please input a non-zero number to get the appropriate output');
+
+end
+end
