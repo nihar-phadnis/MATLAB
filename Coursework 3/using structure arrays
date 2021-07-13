@@ -1,0 +1,25 @@
+function [parts]= waferstore(pno, quant, cost)
+
+parts= struct('partno',pno, 'quantity',quant, 'costper', cost); %building an array of structs
+
+%checking the lengths of the input vectors & throwing an error.
+
+if length(quant)~=length(pno) 
+    msg= "Error. Lengths of vectors are not equal";
+    error(msg)
+end
+
+if length(quant) ~= length(cost)
+    msg= "Error. Lengths of vectors are not equal";
+    error(msg)
+end
+
+
+a= parts.partno;
+totalcost = parts.quantity .* parts.costper;        %total cost of each part
+
+part= [a', totalcost'];
+
+disp(part);
+
+end
